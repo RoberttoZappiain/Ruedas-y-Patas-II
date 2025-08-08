@@ -1,0 +1,37 @@
+# Personalizaciones
+.DS_Store
+
+# Dependencias
+/node_modules
+/packages
+
+# Archivos de compilación y temporales
+/[Bb]in/
+/[Oo]bj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de VS Code
+.vscode
+
+# Archivos generados por Rider
+.idea/
+
+# Archivos de publicación
+/publish/
+
+# Variables de entorno
+.env
+
+# Secretos de usuario
+secrets.json
+
+# Registros de EF
+efpt.config.json
+
+# Archivos generados
+*.generated.cs
