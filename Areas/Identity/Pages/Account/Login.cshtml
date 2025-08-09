@@ -1,0 +1,112 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="container-fluid bg-light py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4 font-weight-bold text-primary">Bienvenido a Rueda y Pata</h3>
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control floating-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="floating-label">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control floating-input" autocomplete="current-password" aria-required="true" placeholder="Contraseña" />
+                            <label asp-for="Input.Password" class="floating-label">Contraseña</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe" class="form-label">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="small" id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a>
+                            <button type="submit" class="w-auto btn btn-primary btn-lg animate-slide-in">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <small class="text-muted">¿No tienes una cuenta? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Crea una aquí</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.querySelectorAll('.floating-input').forEach(input => {
+            if (input.value) {
+                input.classList.add('has-value');
+            }
+            input.addEventListener('input', () => {
+                if (input.value) {
+                    input.classList.add('has-value');
+                } else {
+                    input.classList.remove('has-value');
+                }
+            });
+        });
+    </script>
+}
+<style>
+    .floating-label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        pointer-events: none;
+        transform: translateY(-50%);
+        transition: 0.2s ease-in-out;
+        opacity: 0.6;
+    }
+
+    .floating-input:focus + .floating-label,
+    .floating-input.has-value + .floating-label {
+        top: 10px;
+        left: 12px;
+        font-size: 0.8rem;
+        opacity: 1;
+        background-color: white;
+        padding: 0 5px;
+    }
+
+    .animate-slide-in {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .animate-slide-in:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: skewX(-45deg);
+        transition: left 0.3s ease-in-out;
+    }
+
+    .animate-slide-in:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .animate-slide-in:hover:before {
+        left: 120%;
+    }
+</style>

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    # Imagen oficial de Microsoft SQL Server 2022
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+    
+    # Nombre del contenedor para fácil identificación
+    container_name: mssql_ruedaypata
+    
+    environment:
+      # Acepta el acuerdo de licencia de usuario final (obligatorio)
+      ACCEPT_EULA: 'Y'
+      
+      # Establece la contraseña del usuario 'sa' según tu cadena de conexión
+      SA_PASSWORD: 'TuPassword123!'
+      
+    ports:
+      # Mapea el puerto 1433 de tu máquina al puerto 1433 del contenedor
+      - "1433:1433"
+      
+    volumes:
+      # Crea un volumen para que los datos de la base de datos persistan
+      # incluso si el contenedor se elimina o se reinicia.
+      - ruedaypata-db-data:/var/opt/mssql
+
+# Declara el volumen nombrado para la persistencia de datos
+volumes:
+  ruedaypata-db-data:

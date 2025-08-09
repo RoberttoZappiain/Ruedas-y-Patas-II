@@ -1,0 +1,100 @@
+﻿@page
+@model RuedaYPatas.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Crear Cuenta";
+}
+
+
+<div class="container-fluid bg-light py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4 font-weight-bold text-primary">¡Únete a Rueda y Pata!</h3>
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <hr class="my-3 bg-secondary">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.NombreCompleto" class="form-control floating-input" autocomplete="name" aria-required="true" placeholder="Tu nombre completo" />
+                            <label asp-for="Input.NombreCompleto" class="floating-label">Nombre Completo</label>
+                            <span asp-validation-for="Input.NombreCompleto" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Direccion" class="form-control floating-input" autocomplete="street-address" aria-required="true" placeholder="Tu dirección" />
+                            <label asp-for="Input.Direccion" class="floating-label">Dirección</label>
+                            <span asp-validation-for="Input.Direccion" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control floating-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="floating-label">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control floating-input" autocomplete="new-password" aria-required="true" placeholder="Contraseña" />
+                            <label asp-for="Input.Password" class="floating-label">Contraseña</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword" class="form-control floating-input" autocomplete="new-password" aria-required="true" placeholder="Confirmar contraseña" />
+                            <label asp-for="Input.ConfirmPassword" class="floating-label">Confirmar Contraseña</label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <hr class="my-3 bg-secondary">
+                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary animate-up-on-hover">Crear Cuenta</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <small class="text-muted">¿Ya tienes una cuenta? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Inicia sesión</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.querySelectorAll('.floating-input').forEach(input => {
+            if (input.value) {
+                input.classList.add('has-value');
+            }
+            input.addEventListener('input', () => {
+                if (input.value) {
+                    input.classList.add('has-value');
+                } else {
+                    input.classList.remove('has-value');
+                }
+            });
+        });
+    </script>
+}
+<style>
+    .floating-label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        pointer-events: none;
+        transform: translateY(-50%);
+        transition: 0.2s ease-in-out;
+        opacity: 0.6;
+    }
+
+    .floating-input:focus + .floating-label,
+    .floating-input.has-value + .floating-label {
+        top: 10px;
+        left: 12px;
+        font-size: 0.8rem;
+        opacity: 1;
+        background-color: white;
+        padding: 0 5px;
+    }
+
+    .animate-up-on-hover {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .animate-up-on-hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
