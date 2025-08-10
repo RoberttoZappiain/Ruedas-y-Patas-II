@@ -92,7 +92,7 @@ namespace RuedaYPatas.Areas.Identity.Pages.Account
                 { 
                     UserName = Input.Email, 
                     Email = Input.Email,
-                    NombreCompleto = Input.NombreCompleto,
+                    Nombre = Input.NombreCompleto,
                     Direccion = Input.Direccion
                 };
                 // --------------------------------------

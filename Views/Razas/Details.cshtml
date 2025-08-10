@@ -1,0 +1,18 @@
+@model RuedaYPatas.Models.Raza
+@{ ViewData["Title"] = "Detalles de la Raza"; }
+
+<div class="container mt-4">
+    <h1 class="display-4">@ViewData["Title"]</h1><hr />
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a> 
+            <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model IEnumerable<RuedaYPatas.Models.Raza>
+@{ ViewData["Title"] = "Gestión de Razas"; }
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-4">@ViewData["Title"]</h1>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" asp-action="Create"><i class="fas fa-plus"></i> Añadir Manualmente</a>
+            <form asp-action="SyncFromApi" method="post">
+                 @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-primary btn-lg animate-up-on-hover"><i class="fas fa-sync-alt"></i> Sincronizar desde API</button>
+            </form>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null) { <div class="alert alert-success">@TempData["SuccessMessage"]</div> }
+    @if (TempData["InfoMessage"] != null) { <div class="alert alert-info">@TempData["InfoMessage"]</div> }
+    @if (TempData["ErrorMessage"] != null) { <div class="alert alert-danger">@TempData["ErrorMessage"]</div> }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr><th>@Html.DisplayNameFor(model => model.Nombre)</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary me-2">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info me-2">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

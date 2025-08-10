@@ -1,0 +1,56 @@
+@model RuedaYPatas.Models.Mascota
+
+@{
+    ViewData["Title"] = "Editar Mascota";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Nombre" class="form-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Raza" class="form-label"></label>
+                                <select asp-for="Raza" class="form-select" asp-items="ViewBag.Raza">
+                                    <option value="">-- Seleccione una Raza --</option>
+                                </select>
+                                <span asp-validation-for="Raza" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Foto Actual</label>
+                            <img src="@(string.IsNullOrEmpty(Model.Foto) ? "/images/default-pet.png" : Model.Foto)" class="img-thumbnail" width="150" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Subir Nueva Foto (opcional)</label>
+                            <input name="fotoFile" type="file" class="form-control" accept="image/*" />
+                        </div>
+
+                        <div class="d-flex justify-content-start gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

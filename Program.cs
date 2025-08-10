@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RuedaYPatas.Data;
 using RuedaYPatas.Models;
+using RuedaYPatas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
 // 4. Añadir soporte para Controladores, Vistas y Razor Pages (para Identity)
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddHttpClient("Petfinder", client =>
+{
+    client.BaseAddress = new Uri("https://api.petfinder.com/v2/");
+});
+builder.Services.AddScoped<IPetfinderService, PetfinderService>();
+builder.Services.AddScoped<IImageService, LocalImageService>();
 var app = builder.Build();
 
 // Configurar el pipeline de peticiones HTTP

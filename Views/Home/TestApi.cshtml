@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Prueba de API Petfinder";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (ViewBag.Success)
+{
+    <div class="alert alert-success">
+        ¡Éxito! Se conectó a la API y se obtuvieron @(ViewBag.Breeds.Count) razas.
+    </div>
+    <h4>Primeras 10 razas de perros obtenidas:</h4>
+    <ul class="list-group">
+    @foreach (var breed in ((IEnumerable<RuedaYPatas.DTOs.PetfinderBreed>)ViewBag.Breeds).Take(10))
+        {
+            <li class="list-group-item">@breed</li>
+        }
+    </ul>
+}
+else
+{
+    <div class="alert alert-danger">
+        <h4>Error al conectar a la API</h4>
+        <p>@ViewBag.Error</p>
+    </div>
+}

@@ -1,31 +1,56 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RuedasYPatas.Models;
+using RuedaYPatas.Services;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
-namespace RuedasYPatas.Controllers;
-
-public class HomeController : Controller
+namespace RuedaYPatas.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private readonly ILogger<HomeController> _logger;
+        private readonly IPetfinderService _petfinderService; // <-- DEBES DECLARAR EL CAMPO PRIVADO
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        // El constructor debe recibir el servicio y asignarlo al campo privado
+        public HomeController(ILogger<HomeController> logger, IPetfinderService petfinderService)
+        {
+            _logger = logger;
+            _petfinderService = petfinderService; // <-- DEBES ASIGNARLO AQUÍ
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        // --- TU MÉTODO DE PRUEBA ---
+        public async Task<IActionResult> TestApi()
+        {
+            try
+            {
+                var dogBreeds = await _petfinderService.GetBreedsAsync("dog");
+                ViewBag.Breeds = dogBreeds;
+                ViewBag.Success = true;
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.Success = false;
+                ViewBag.Error = ex.Message;
+            }
+
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

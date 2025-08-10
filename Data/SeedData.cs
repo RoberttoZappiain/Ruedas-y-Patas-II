@@ -31,7 +31,7 @@ public static class SeedData
             {
                 UserName = adminEmail,
                 Email = adminEmail,
-                NombreCompleto = "Administrador del Sistema",
+                Nombre = "Administrador del Sistema",
                 Direccion = "N/A",
                 EmailConfirmed = true // Importante para poder iniciar sesión directamente
             };
