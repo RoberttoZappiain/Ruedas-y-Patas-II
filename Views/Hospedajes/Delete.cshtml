@@ -1,0 +1,26 @@
+@model RuedaYPatas.Models.Hospedaje
+@{
+    ViewData["Title"] = "Eliminar Hospedaje";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4 text-danger">@ViewData["Title"]</h1>
+    <h3 class="text-danger">¿Estás seguro de que quieres eliminar este servicio?</h3>
+    <hr />
+    <div class="card bg-danger-subtle border-danger shadow-sm">
+        <div class="card-body">
+            <h4>@Html.DisplayFor(model => model.Titulo)</h4>
+            <dl class="row">
+                <dt class="col-sm-3">Ubicación</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Ubicacion.Ciudad)</dd>
+            </dl>
+    
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Sí, Eliminar Definitivamente</button>
+                <a asp-action="Index" class="btn btn-secondary">No, Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-    // --- DbSet para cada una de tus entidades ---
     public DbSet<Ubicacion> Ubicaciones { get; set; }
     public DbSet<Mascota> Mascotas { get; set; }
     public DbSet<Hospedaje> Hospedajes { get; set; }
@@ -22,8 +21,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Raza> Razas { get; set; }
 
 
-
-    // --- Configuración con Fluent API para resolver ciclos ---
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -54,15 +51,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(t => t.UbicacionDestinoId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        // --- NUEVAS REGLAS AÑADIDAS ---
-        // Regla para Reservas de Hospedaje
         builder.Entity<ReservaHospedaje>()
             .HasOne(r => r.Mascota)
             .WithMany()
             .HasForeignKey(r => r.MascotaId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        // Regla para Solicitudes de Transporte
         builder.Entity<SolicitudTransporte>()
             .HasOne(s => s.Mascota)
             .WithMany()

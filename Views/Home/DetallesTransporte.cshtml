@@ -1,0 +1,55 @@
+@model RuedaYPatas.Models.Transporte
+@{
+    ViewData["Title"] = "Detalles del Viaje";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-7">
+            <h3>Viaje de <strong>@Model.Origen.Ciudad</strong> a <strong>@Model.Destino.Ciudad</strong></h3>
+            <p class="lead">Organizado por: @Model.Conductor.Nombre</p>
+            <hr />
+            <dl>
+                <dt>Descripción</dt>
+                <dd>@Model.Descripcion</dd>
+                <dt>Salida</dt>
+                <dd>@Model.FechaSalida.ToString("F")</dd>
+                <dt>Llegada</dt>
+                <dd>@Model.FechaLlegada.ToString("F")</dd>
+                <dt>Capacidad</dt>
+                <dd>@Model.Capacidad lugares para mascotas</dd>
+            </dl>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Solicitar un Lugar</h5>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="SolicitudesTransporte" asp-action="Create" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="TransporteId" value="@Model.Id" />
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">¿Para qué mascota?</label>
+                                <select name="MascotaId" class="form-select" asp-items="ViewBag.MascotasUsuario" required>
+                                    <option value="">-- Selecciona tu mascota --</option>
+                                </select>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Enviar Solicitud</button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <a asp-area="Identity" asp-page="/Account/Login">Inicia sesión</a> para solicitar un lugar.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

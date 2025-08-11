@@ -1,0 +1,29 @@
+@model IEnumerable<RuedaYPatas.Models.Transporte>
+@{ ViewData["Title"] = "Mis Viajes"; }
+
+<div class="container mt-4">
+    @if (TempData["SuccessMessage"] != null) { <div class="alert alert-success">@TempData["SuccessMessage"]</div> }
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <a class="btn btn-primary btn-lg" asp-action="Create"><i class="fas fa-plus"></i> Ofrecer Viaje</a>
+    </div>
+    <div class="card shadow-sm"><div class="card-body">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr><th>Ruta</th><th>Fecha Salida</th><th>Capacidad</th><th></th></tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Origen.Ciudad a @item.Destino.Ciudad</td>
+                <td>@item.FechaSalida.ToString("g")</td>
+                <td>@item.Capacidad mascotas</td>
+                <td class="text-end">
+                    @* Botones de Edit y Delete irían aquí *@
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    </div></div>
+</div>

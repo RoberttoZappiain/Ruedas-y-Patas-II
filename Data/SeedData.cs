@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using RuedaYPatas.Constants; // Usaremos la clase de constantes
+using RuedaYPatas.Constants; 
 using RuedaYPatas.Models;
 
 namespace RuedaYPatas.Data;

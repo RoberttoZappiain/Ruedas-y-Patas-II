@@ -1,0 +1,51 @@
+@model IEnumerable<RuedaYPatas.Models.Hospedaje>
+@{
+    ViewData["Title"] = "Mis Hospedajes";
+}
+
+<div class="container mt-4">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <a class="btn btn-primary btn-lg" asp-action="Create"><i class="fas fa-plus"></i> Ofrecer Hospedaje</a>
+    </div>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    Aún no has ofrecido ningún servicio de hospedaje.
+                </div>
+            </div>
+        }
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <img src="@(string.IsNullOrEmpty(item.Foto) ? "/images/default-house.png" : item.Foto)" class="card-img-top" alt="Foto de @item.Titulo" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Titulo</h5>
+                        <p class="card-text text-muted">
+                            <i class="fas fa-map-marker-alt me-1"></i>
+                            @item.Ubicacion.Ciudad
+                        </p>
+                        <h6 class="card-subtitle mb-2"><strong>$@item.CostoPorNoche.ToString("F2")</strong> / noche</h6>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0 d-flex justify-content-end gap-2">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

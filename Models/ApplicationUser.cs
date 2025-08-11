@@ -6,11 +6,8 @@ namespace RuedaYPatas.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    // Propiedades personalizadas
     public string Nombre { get; set; }
     public string Direccion { get; set; }
-    // El campo Telefono ya está en Identity como 'PhoneNumber'
-    // El Rol se gestiona con el sistema de Roles de Identity, no con un campo aquí.
 
     // --- Propiedades de Navegación (Las relaciones que "salen" de Usuario) ---
 

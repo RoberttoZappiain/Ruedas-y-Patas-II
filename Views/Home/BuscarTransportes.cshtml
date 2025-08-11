@@ -1,0 +1,22 @@
+@model IEnumerable<RuedaYPatas.Models.Transporte>
+@{ ViewData["Title"] = "Encuentra un Viaje"; }
+
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <p class="lead text-muted">Viajes compartidos para llevar a tu mascota de forma segura.</p>
+    </div>
+    <div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a asp-action="DetallesTransporte" asp-route-id="@item.Id" class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@item.Origen.Ciudad a @item.Destino.Ciudad</h5>
+                <small>Lugares: @item.Capacidad</small>
+            </div>
+            <p class="mb-1">Sale el: <strong>@item.FechaSalida.ToString("f")</strong></p>
+            <small>Conductor: @item.Conductor.Nombre</small>
+        </a>
+    }
+    </div>
+</div>

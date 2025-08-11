@@ -1,0 +1,45 @@
+@model RuedaYPatas.DTOs.TransporteCreateDto
+@{ ViewData["Title"] = "Ofrecer Nuevo Transporte"; }
+
+<div class="container mt-4">
+    <h1 class="display-4">@ViewData["Title"]</h1><hr />
+    <div class="row"><div class="col-md-8"><div class="card shadow-sm"><div class="card-body">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="UbicacionOrigenId" class="form-label"></label>
+                <select asp-for="UbicacionOrigenId" class="form-select" asp-items="ViewBag.UbicacionOrigenId"><option value="">-- Origen --</option></select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="UbicacionDestinoId" class="form-label"></label>
+                <select asp-for="UbicacionDestinoId" class="form-select" asp-items="ViewBag.UbicacionDestinoId"><option value="">-- Destino --</option></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="FechaSalida" class="form-label"></label>
+                <input asp-for="FechaSalida" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="FechaLlegada" class="form-label"></label>
+                <input asp-for="FechaLlegada" class="form-control" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Capacidad" class="form-label"></label>
+            <input asp-for="Capacidad" class="form-control" type="number" />
+        </div>
+        <div class="d-flex justify-content-start gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">Crear Viaje</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+    </div></div></div></div>
+</div>
+
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

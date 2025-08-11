@@ -1,8 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<RuedaYPatas.Models.Transporte>
+@{
+    ViewData["Title"] = "Bienvenido a Rueda y Pata";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Encuentra un Viaje Seguro</h1>
+    <p class="lead">Transporte colaborativo para tu mascota, ofrecido por amantes de los animales.</p>
+</div>
+
+<div class="container mt-5">
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            No hay viajes disponibles en este momento. ¡Vuelve a consultar pronto!
+        </div>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var item in Model)
+            {
+                <a asp-controller="Home" asp-action="DetallesTransporte" asp-route-id="@item.Id" class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <i class="fas fa-route"></i>
+                            @item.Origen.Ciudad a @item.Destino.Ciudad
+                        </h5>
+                        <span class="badge bg-primary rounded-pill">@item.Capacidad lugares</span>
+                    </div>
+                    <p class="mb-1">
+                        <i class="fas fa-calendar-alt"></i>
+                        Sale el: <strong>@item.FechaSalida.ToString("dddd, dd MMMM yyyy 'a las' HH:mm 'hrs.'")</strong>
+                    </p>
+                    <small class="text-muted">
+                        <i class="fas fa-user-circle"></i>
+                        Conductor: @item.Conductor.Nombre
+                    </small>
+                </a>
+            }
+        </div>
+    }
 </div>
